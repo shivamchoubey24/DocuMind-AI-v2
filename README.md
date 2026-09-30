@@ -174,7 +174,3 @@ asked "what would you improve next":
   of FastAPI `BackgroundTasks`.
 
 ---
-
-## 📄 License
-
-MIT — see `LICENSE`.
