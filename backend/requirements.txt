@@ -1,0 +1,29 @@
+fastapi==0.115.0
+uvicorn[standard]==0.30.6
+pydantic[email]==2.9.2
+pydantic-settings==2.5.2
+sqlalchemy==2.0.35
+python-jose[cryptography]==3.3.0
+passlib==1.7.4
+bcrypt==4.0.1
+python-multipart==0.0.9
+slowapi==0.1.9
+python-dotenv==1.0.1
+
+# RAG stack
+langchain==0.3.7
+langchain-community==0.3.5
+langchain-groq==0.2.0
+langchain-huggingface==0.1.2
+langchain-text-splitters==0.3.0
+faiss-cpu==1.9.0
+sentence-transformers==3.2.1
+
+# File parsing
+pypdf==5.0.1
+python-docx==1.1.2
+
+# Testing
+pytest==8.3.3
+pytest-asyncio==0.24.0
+httpx==0.27.2

@@ -1,0 +1,42 @@
+# To run against Postgres instead of SQLite (recommended for a real
+# multi-user deployment), add a `postgres:` service and point
+# DATABASE_URL at it, e.g.:
+#   DATABASE_URL=postgresql://documind:documind@postgres:5432/documind
+# See README.md "Scaling to Postgres" for the two-line change needed.
+services:
+  backend:
+    build: ./backend
+    container_name: documind-backend
+    env_file:
+      - ./backend/.env
+    environment:
+      - CORS_ORIGINS=["http://localhost:8080", "http://localhost:5173"]
+      - DATABASE_URL=sqlite:////app/db/documind.db
+      - UPLOAD_DIR=storage/uploads
+      - VECTORSTORE_DIR=storage/vectorstores
+    volumes:
+      - backend_storage:/app/storage
+      - backend_db:/app/db
+    ports:
+      - "8000:8000"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
+    restart: unless-stopped
+
+  frontend:
+    build: ./frontend
+    container_name: documind-frontend
+    depends_on:
+      backend:
+        condition: service_healthy
+    ports:
+      - "8080:80"
+    restart: unless-stopped
+
+volumes:
+  backend_storage:
+  backend_db:
